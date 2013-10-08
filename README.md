@@ -1,4 +1,4 @@
-Chapter1
+Algorithms and Problems
 ========
 Algorithms and Problem sets
 
