@@ -1,4 +1,7 @@
 Chapter1
 ========
-Just two sorting algorithms: 
-Insertion Sort and MergeSort
+Algorithms and Problem sets
+
+1. Two sorting algorithms: Insertion Sort and MergeSort.
+
+2. Check if characters are all unique in a string.
