@@ -26,29 +26,83 @@ public class MyLinkedList<T> {
 	}
 	
 	public LinkedListNode<T> search(T element){
+		if (size == 0){
+			return null;
+		}
+		LinkedListNode<T> current = head;
+		while (current != null){
+			if (current.getElement().equals(element)){
+				return current;
+			}
+			current = current.getNext();
+		}
 		return null;
 	}
 	
-	public boolean insertBefore(T element){
+	public boolean insertBefore(T element, T before){
+		if (size == 0){
+			return false;
+		}
+		if (head.getElement().equals(before)){
+			// insert before the head element
+			LinkedListNode<T> tmp = new LinkedListNode<T>(element, null);
+			tmp.setNext(head);
+			head = tmp;
+			return true;
+		}
+		LinkedListNode<T> front = head;
+		LinkedListNode<T> current = head.getNext();
+		while (current != null && !current.getElement().equals(before)){
+			front = front.getNext();
+			current = current.getNext();
+		}
+		if (current == null) return false;
+		LinkedListNode<T> tmp = new LinkedListNode<T>(element, null);
+		tmp.setNext(current);
+		front.setNext(tmp);
+		size++;
+		return true;
+	}
+	
+	public boolean delete(T element){
+		if (size == 0) return false;
+		if (head.getElement().equals(element)){
+			head = head.getNext();
+			size--;
+			return true;
+		}
+		LinkedListNode<T> front = head;
+		LinkedListNode<T> current = head.getNext();
+		while (current != null && !current.getElement().equals(element)){
+			front = front.getNext();
+			current = current.getNext();
+		}
+		if (current == null) return false;
+		front.setNext(current.getNext());
 		return false;
 	}
 	
-	public boolean insertAfter(T element){
-		return false;
-	}
-	
-	public LinkedListNode<T> remove(T element){
-		return null;
-	}
-	
-	public boolean add(T element){
+	public void add(T element){
 		if (size == 0){
 			head = new LinkedListNode<T>(element, null);
-			size++;
-			return true;
 		}else{
-			
+			LinkedListNode<T> tmp = new LinkedListNode<T>(element, null);
+			tmp.setNext(head);
+			head = tmp;
 		}
-		return false;
+		size++;
+	}
+	
+	public String traverse(){
+		if (size == 0) return null;
+		StringBuffer buffer = new StringBuffer();
+		LinkedListNode<T> current = head;
+		while(current != null){
+			buffer.append(current.getElement().toString());
+			if(current.getNext() != null) buffer.append("->");
+			current = current.getNext();
+		}
+		buffer.append("->null");
+		return buffer.toString();
 	}
 }

@@ -25,4 +25,8 @@ public class LinkedListNode<T> {
 		this.next = next;
 	}
 	
+	public String toString(){
+		return element.toString();
+	}
+	
 }
