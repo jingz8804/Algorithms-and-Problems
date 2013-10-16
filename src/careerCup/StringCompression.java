@@ -20,12 +20,35 @@ public class StringCompression {
 
 	}
 	
+	private static int getCompressedSize(String str){
+		int strLength = str.length();
+		int compressedLen = 0;
+		
+		char currentNode;
+		int count = 0;
+		for (int i = 0; i < strLength; i++){
+			currentNode = str.charAt(i);
+			if (i == 0){
+				count++;
+			}else{
+				if (currentNode == str.charAt(i-1)){
+					count++;
+				}else{
+					compressedLen += 1 + String.valueOf(count).length();
+					count = 1;
+				}
+			}
+		}
+		compressedLen += 1 + String.valueOf(count).length();
+		return compressedLen;
+	}
+	
 	private static String compress(String str){
 		if (str == null) return null;
 		if (str.equals("")) return str;
+		if (getCompressedSize(str) >= str.length()) return str;
 
-		char[] charArr = str.toCharArray();
-		StringBuffer strs = new StringBuffer(charArr.length * 2);
+		StringBuffer strs = new StringBuffer();
 
 		// we need to one index for charArr: 
 		// keep track of the current character
@@ -36,13 +59,13 @@ public class StringCompression {
 		char currentNode;
 		int count = 0;
 
-		for (; i < charArr.length; i++){
-			currentNode = charArr[i];
+		for (; i < str.length(); i++){
+			currentNode = str.charAt(i);
 			if (i == 0) {
 				count++;
 				strs.append(Character.toString(currentNode));
 			}else{
-				if (charArr[i-1] == currentNode){
+				if (str.charAt(i-1) == currentNode){
 					count++;
 				}else{
 					strs.append(Integer.toString(count));
@@ -53,13 +76,7 @@ public class StringCompression {
 		}
 		// not finished, the count of the last character in consideration should be added as well
 		strs.append(Integer.toString(count));
-
-		String compressed = strs.toString();
-		if (compressed.length() >= str.length()){
-			return str;
-		}else{
-			return compressed;
-		}
+		return strs.toString();
 	}
 
 }
