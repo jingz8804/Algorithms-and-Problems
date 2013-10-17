@@ -19,6 +19,15 @@ public class HashTableTest {
 		test.remove(11);
 		System.out.println(test.get(11));
 		System.out.println(test.get(43));
+		
+		for (int i = 0; i < 25; i++){
+			test.put(i, i+10);
+		}
+		
+		System.out.println(test.getTableSize());
+		for (int i = 0; i < 25; i++){
+			System.out.println(i + " " + test.get(i));
+		}
 	}
 
 }

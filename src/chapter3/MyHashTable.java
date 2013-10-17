@@ -16,6 +16,10 @@ public class MyHashTable{
 		elemCount = 0;
 	}
 	
+	public int getTableSize(){
+		return table.length;
+	}
+	
 	// it is recommended that every object implements its own hashCode function
 	// this hash method here assume that key has its customized hashCode function
 	private int hash(Object key){
