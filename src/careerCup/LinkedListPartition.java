@@ -31,6 +31,16 @@ public class LinkedListPartition {
 		System.out.println(buffer.toString());
 	}
 	
+	/*
+	 * Just write down an example: say x is 6.
+	 * .....5, 14, ..., 7....
+	 * before 14 all numbers are less than 6; 
+	 * numbers between 14 and 7 (excluding 7) are all larger than 6;
+	 * so 14, the first number larger than 6 is like a cut point.
+	 * once we meet it, we have to watch out for number less than 
+	 * 6 after 14. If we find one, we need to move it to the left side 
+	 * by left side I mean you can just put it at the head.
+	 */
 	public static LinkedListNode partition(LinkedListNode head, int x){
 		if (head == null) return null;
 		boolean hasMetLarger = false;
