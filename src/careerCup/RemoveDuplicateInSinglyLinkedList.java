@@ -3,7 +3,7 @@ package careerCup;
 import java.util.HashMap;
 
 public class RemoveDuplicateInSinglyLinkedList {
-
+	public static RemoveDuplicateInSinglyLinkedList tmp = new RemoveDuplicateInSinglyLinkedList();
 	/**
 	 * @param args
 	 */
@@ -19,8 +19,15 @@ public class RemoveDuplicateInSinglyLinkedList {
 		traverse(head);
 		removeDuplicates1(head);
 		traverse(head);
-		System.out.println(findKthToLastElement(head, 4));
-		System.out.println(findKthToLastElement2(head, 4));
+		System.out.println(findKthToLastElement(head, 3));
+		System.out.println(findKthToLastElement2(head, 3));
+		NodeWrapper n = findKthToLastElement3(head, 3);
+		if (n.node != null){
+			System.out.println(n.node);
+		}else{
+			System.err.println("K is larger than the length of the list");
+		}
+		
 	}
 	
 	public static void traverse(LinkedListNode head){
@@ -95,7 +102,7 @@ public class RemoveDuplicateInSinglyLinkedList {
 	
 	public static LinkedListNode findKthToLastElement2(LinkedListNode head, int k){
 		if(head == null || k < 0) return null;
-		// if a node’s next is null, then it is the last node in the list
+		// if a nodeæŠ¯ next is null, then it is the last node in the list
 		// kth to last node means if we make k moves from the current node
 		// we will get the last node
 		LinkedListNode current = head;
@@ -105,7 +112,7 @@ public class RemoveDuplicateInSinglyLinkedList {
 			for (int i = 0; i < k; i++){
 				if (runner.getNext() == null){
 					// reach the last node before the k moves complete
-					// 0, 1, 2, …., k - 1 moves must not fail
+					// 0, 1, 2, ï¿½, k - 1 moves must not fail
 					return null;
 				}else{
 					runner = runner.getNext();
@@ -118,4 +125,48 @@ public class RemoveDuplicateInSinglyLinkedList {
 		}
 		return null;
 	}
+	
+	public static NodeWrapper findKthToLastElement3(LinkedListNode head, int k){
+		if (head.getNext() == null){
+			return tmp.new NodeWrapper(null, 0);
+		}
+		
+		NodeWrapper node = findKthToLastElement3(head.getNext(), k);
+		if (node.value + 1 == k){
+			return tmp.new NodeWrapper(head, k);
+		}
+		
+		if (node.value == k){
+			return node;
+		}
+		
+		return tmp.new NodeWrapper(null, node.value + 1);
+	}
+	
+	private class NodeWrapper{
+		public LinkedListNode node;
+		public int value;
+		
+		public NodeWrapper(LinkedListNode node, int value){
+			this.node = node;
+			this.value = value;
+		}
+	}
+	
+	public static NodeWrapper getKthToLast6(NodeWrapper head, int k) {
+		if (head.node == null) {
+			return tmp.new NodeWrapper(null, 0);
+		}
+
+		NodeWrapper nodeWrapper = getKthToLast6(tmp.new NodeWrapper(
+				head.node.getNext(), head.value), k);
+		nodeWrapper.value += 1;
+
+		if (nodeWrapper.value == k) {
+			return head;
+		}
+		// return chap2_2.new NodeWrapper(null, nodeWrapper.value);
+		return nodeWrapper;
+	}
+
 }
