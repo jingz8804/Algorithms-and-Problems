@@ -15,7 +15,7 @@ public class IsRotation {
 	
 	private static boolean isRotation(String str1, String str2){
 		String combined = str1 + str1;
-		if (combined.indexOf(str2) > 0) return true;
+		if (str1.length == str2.length && combined.indexOf(str2) > 0) return true;
 		return false;
 	}
 }
